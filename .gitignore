@@ -1,0 +1,7 @@
+.venv/
+.pytest/
+__pycache__/
+.pytest_cache/
+*.pyc
+.python-version
+uv.lock
