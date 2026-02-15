@@ -93,7 +93,7 @@ def main() -> None:
 
     check_root()
 
-    # ── Step 1: Detect capabilities ──────────────────────────────────────
+    # figure out the capabilities of the system and what interfaces we can use
     print("Scanning WiFi capabilities...")
     caps = detect_capabilities()
     print_capabilities(caps)
@@ -105,13 +105,13 @@ def main() -> None:
     if args.check_only:
         sys.exit(0)
 
-    # ── Step 2: Resolve configuration ────────────────────────────────────
+    # resolve the configuration based on capabilities and user input
     upstream_iface = args.upstream or caps.upstream_interface.name
     upstream_channel = caps.upstream_interface.channel or 6
     channel = args.channel if args.channel > 0 else upstream_channel
     ap_iface = args.ap_interface or f"{upstream_iface}_ap"
 
-    # Get passphrase
+    # passphrase set up
     passphrase = args.passphrase
     if not passphrase:
         passphrase = getpass.getpass("Enter WPA2 passphrase for the AP (8-63 chars): ")
@@ -126,10 +126,10 @@ def main() -> None:
     print(f"   Subnet:      {args.subnet}")
     print()
 
-    # ── Step 3: Set up everything under cleanup manager ──────────────────
+    # use cleanup manager to ensure we teardown properly on exit
     with CleanupManager() as cleanup:
 
-        # 3a. Interface
+        # interface
         print("Creating AP interface...")
         iface_mgr = InterfaceManager(upstream_iface, ap_iface, args.subnet)
         cleanup.register(iface_mgr)
@@ -139,7 +139,7 @@ def main() -> None:
         iface_mgr.disable_networkmanager_for_ap()
         iface_mgr.enable_ip_forward()
 
-        # 3b. hostapd (Access Point)
+        # hostapd (Access Point)
         print("Starting access point...")
         ap_mgr = APManager(
             interface=ap_iface,
@@ -157,7 +157,7 @@ def main() -> None:
         cleanup.register(ap_mgr)
         ap_mgr.start()
 
-        # 3c. dnsmasq (DHCP + DNS)
+        # dnsmasq (DHCP + DNS)
         print("Starting DHCP server...")
         dhcp_mgr = DHCPManager(
             interface=ap_iface,
@@ -167,20 +167,20 @@ def main() -> None:
         cleanup.register(dhcp_mgr)
         dhcp_mgr.start()
 
-        # 3d. NAT
+        # NAT
         if not args.no_nat:
             print("Configuring NAT...")
             nat_mgr = NATManager(upstream_iface, ap_iface, args.subnet)
             cleanup.register(nat_mgr)
             nat_mgr.apply_rules()
 
-        # ── Step 4: Running ──────────────────────────────────────────────
+        # Run
         print("\nWifi Extender is running.")
         print(f"   SSID: {args.ssid}")
         print(f"   Connect your devices and enjoy extended WiFi range.")
         print(f"   Press Ctrl+C to stop.\n")
 
-        # Main loop — show status dashboard or just idle
+        # show status dashboard or just idle
         try:
             while True:
                 if not args.no_monitor:
