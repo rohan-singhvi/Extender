@@ -54,7 +54,7 @@ class APManager:
     def __init__(
         self,
         interface: str,
-        ssid: str = "WiFiRepeater",
+        ssid: str = "WifiExtender",
         passphrase: str = "changeme123",
         channel: int = 6,
         hw_mode: str = "g",

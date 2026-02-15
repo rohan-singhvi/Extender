@@ -46,8 +46,8 @@ Examples:
                     help="Upstream WiFi interface (default: auto-detect)")
     p.add_argument("--ap-interface", "-a",
                     help="AP interface name (default: <upstream>_ap)")
-    p.add_argument("--ssid", "-s", default="WiFiRepeater",
-                    help="SSID for the repeater AP (default: WiFiRepeater)")
+    p.add_argument("--ssid", "-s", default="WifiExtender",
+                    help="SSID for the repeater AP (default: WifiExtender)")
     p.add_argument("--passphrase", "-p",
                     help="WPA2 passphrase (8-63 chars; prompted if not given)")
     p.add_argument("--channel", "-c", type=int, default=0,

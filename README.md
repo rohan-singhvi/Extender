@@ -75,7 +75,7 @@ sudo python3 main.py --help
 |------|---------|-------------|
 | `--upstream` | auto-detect | Upstream WiFi interface (station mode) |
 | `--ap-interface` | auto-create virtual | AP interface name |
-| `--ssid` | `WiFiRepeater` | SSID of the new access point |
+| `--ssid` | `WifiExtender` | SSID of the new access point |
 | `--passphrase` | (prompted) | WPA2 passphrase (8-63 chars) |
 | `--channel` | match upstream | WiFi channel |
 | `--subnet` | `192.168.4.0/24` | Subnet for AP clients |
