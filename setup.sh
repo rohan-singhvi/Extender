@@ -24,7 +24,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LOG_FILE="/tmp/wifi-extender-setup.log"
 
-# -- helpers ---------------------------------------------------------------
+# helpers 
 
 log() {
     echo "[setup] $*"
@@ -43,7 +43,7 @@ check_root() {
     fi
 }
 
-# -- step functions --------------------------------------------------------
+# step functions
 
 check_distro() {
     log "Checking distribution..."
@@ -290,7 +290,7 @@ run_validation() {
     return $rc
 }
 
-# -- main ------------------------------------------------------------------
+# main
 
 main() {
     echo ""

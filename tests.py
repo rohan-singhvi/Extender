@@ -26,9 +26,9 @@ import monitor
 import cleanup
 
 
-# ---------------------------------------------------------------------------
+
 # util.py
-# ---------------------------------------------------------------------------
+
 class TestUtil(unittest.TestCase):
 
     @patch("subprocess.run")
@@ -80,9 +80,9 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(util.human_bytes(1024 ** 4), "1.0 TB")
 
 
-# ---------------------------------------------------------------------------
+
 # capabilities.py
-# ---------------------------------------------------------------------------
+
 IW_DEV_OUTPUT = """phy#0
 \tInterface wlan0
 \t\tifindex 3
@@ -166,9 +166,9 @@ class TestCapabilities(unittest.TestCase):
         self.assertFalse(supports_sta_ap)
 
 
-# ---------------------------------------------------------------------------
+
 # ap_manager.py
-# ---------------------------------------------------------------------------
+
 class TestAPManager(unittest.TestCase):
 
     def test_validate_ok(self):
@@ -253,9 +253,9 @@ class TestAPManager(unittest.TestCase):
         self.assertFalse(mgr.is_running)
 
 
-# ---------------------------------------------------------------------------
+
 # nat_manager.py
-# ---------------------------------------------------------------------------
+
 class TestNATManager(unittest.TestCase):
 
     @patch("nat_manager.run")
@@ -306,9 +306,9 @@ class TestNATManager(unittest.TestCase):
         mock_run.assert_not_called()
 
 
-# ---------------------------------------------------------------------------
+
 # interface_manager.py
-# ---------------------------------------------------------------------------
+
 class TestInterfaceManager(unittest.TestCase):
 
     def test_gateway_ip_calculation(self):
@@ -344,9 +344,9 @@ class TestInterfaceManager(unittest.TestCase):
         self.assertTrue(len(sysctl_calls) > 0)
 
 
-# ---------------------------------------------------------------------------
+
 # dhcp_manager.py
-# ---------------------------------------------------------------------------
+
 class TestDHCPManager(unittest.TestCase):
 
     def test_dhcp_range_calculation(self):
@@ -376,9 +376,9 @@ class TestDHCPManager(unittest.TestCase):
                 os.unlink(mgr._pid_file)
 
 
-# ---------------------------------------------------------------------------
+
 # monitor.py
-# ---------------------------------------------------------------------------
+
 IW_LINK_OUTPUT = """\
 Connected to aa:bb:cc:dd:ee:ff (on wlan0)
 \tSSID: HomeNetwork
@@ -452,9 +452,9 @@ class TestMonitor(unittest.TestCase):
         self.assertEqual(monitor.signal_bars(None), "?")
 
 
-# ---------------------------------------------------------------------------
+
 # cleanup.py
-# ---------------------------------------------------------------------------
+
 class TestCleanupManager(unittest.TestCase):
 
     def test_registers_and_cleans_up_lifo(self):
